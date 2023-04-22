@@ -21,25 +21,30 @@ def create_connection(db_name, db_user, db_password, db_host, db_port):
 
 connect = create_connection(name_bd, user_bd, password_bd, host_bd, port_bd)
 
-def create_table_users():
-    with connect.cursor() as cursor:
-        cursor.execute(
+def create_table_users(connect):
+    with connect.cursor() as cur:
+        cur.execute(
             """CREATE TABLE IF NOT EXISTS viewed_users (
 	           id serial,
-	           vk_id_search serial, PRIMARY KEY, NOT NULL);"""
+	           vk_id_search varchar(30) NOT NULL PRIMARY KEY);"""
             )
-    print('[INFO] table viewed_users was created' )
+    print('[INFO] таблица viewed_users создана' )
 
-def add_users_in_table():
+def add_users_in_table(connect, vk_id_search):
     with connect.cursor() as cursor:
         cursor.execute(
             f"""INSERT INTO viewed_users (vk_id_search) VALUES
                ('{vk_id_search}')"""
         )
+    print(f'{vk_id_search} добавлен в таблицу')
 
-# def check_user_in_table(id_num):
-#     with connect.cursor() as cursor:
-#         cursor.execute(
-#             """SELECT vk_id_search FROM viewed_users WHERE vk_id_search=%s; """, (id_num)
-#         )
-#         return cursor.fetchone()
+def check_user_in_table(connect, id_number):
+    with connect.cursor() as cur:
+        cur.execute(
+            """SELECT vk_id_search 
+            FROM viewed_users 
+            WHERE vk_id_search= %s; """, (id_number,)
+        )
+        return cur.fetchone()
+
+create_table_users(connect)

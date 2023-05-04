@@ -5,8 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bdate.py" beforeDir="false" afterPath="$PROJECT_DIR$/bdate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corn.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dip.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,16 +18,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2114">
-              <caret line="232" column="7" selection-start-line="232" selection-start-column="7" selection-end-line="232" selection-end-column="7" />
+            <state relative-caret-position="-324">
+              <caret line="251" lean-forward="true" selection-start-line="251" selection-end-line="251" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <element signature="e#2107#2501#0" />
-                <element signature="e#3280#3580#0" />
-                <element signature="e#3684#4711#0" />
-                <element signature="e#4756#5685#0" />
-                <marker date="1682180067634" expanded="true" signature="7545:7568" ph="..." />
-                <marker date="1682180067634" expanded="true" signature="9475:9499" ph="..." />
               </folding>
             </state>
           </provider>
@@ -37,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bdate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-62">
-              <caret line="34" column="23" lean-forward="true" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
+            <state relative-caret-position="731">
+              <caret line="47" column="13" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -49,8 +42,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+            <state relative-caret-position="34">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -74,9 +67,9 @@
         <option value="$PROJECT_DIR$/подлор.py" />
         <option value="$PROJECT_DIR$/dip.py" />
         <option value="$PROJECT_DIR$/corn.py" />
+        <option value="$PROJECT_DIR$/bdate.py" />
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/bdate.py" />
       </list>
     </option>
   </component>
@@ -266,13 +259,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24330357" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24330357" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.78943455" visible="true" weight="0.39443535" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.78943455" visible="true" weight="0.29459903" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985119" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -290,45 +284,30 @@
     <entry file="file://$PROJECT_DIR$/venv/config" />
     <entry file="file://$PROJECT_DIR$/venv/config.py" />
     <entry file="file://$PROJECT_DIR$/подлор.py" />
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="90" column="17" selection-start-line="90" selection-start-column="17" selection-end-line="90" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/corn.py" />
     <entry file="file://$PROJECT_DIR$/bdate.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-62">
-          <caret line="34" column="23" lean-forward="true" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
+        <state relative-caret-position="731">
+          <caret line="47" column="13" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2114">
-          <caret line="232" column="7" selection-start-line="232" selection-start-column="7" selection-end-line="232" selection-end-column="7" />
+        <state relative-caret-position="-324">
+          <caret line="251" lean-forward="true" selection-start-line="251" selection-end-line="251" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#2107#2501#0" />
-            <element signature="e#3280#3580#0" />
-            <element signature="e#3684#4711#0" />
-            <element signature="e#4756#5685#0" />
-            <marker date="1682180067634" expanded="true" signature="7545:7568" ph="..." />
-            <marker date="1682180067634" expanded="true" signature="9475:9499" ph="..." />
           </folding>
         </state>
       </provider>

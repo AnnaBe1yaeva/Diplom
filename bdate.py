@@ -28,6 +28,7 @@ def create_table_users(connect):
 	           id serial,
 	           vk_id_search varchar(30) NOT NULL PRIMARY KEY);"""
             )
+    connect.commit()
     print('[INFO] таблица viewed_users создана' )
 
 def add_users_in_table(connect, vk_id_search):
@@ -36,6 +37,7 @@ def add_users_in_table(connect, vk_id_search):
             f"""INSERT INTO viewed_users (vk_id_search) VALUES
                ('{vk_id_search}')"""
         )
+    connect.commit()
     print(f'{vk_id_search} добавлен в таблицу')
 
 def check_user_in_table(connect, id_number):

@@ -63,33 +63,38 @@ class BotFunction:
                 age_min_sh = 0
         return [age_min_sh, age_max_sh]
 
-    def determine_city(self, user_id, city_search):
-        city_sh = city_search
-        if len(city_search) == 0:
-            self.message_send(event.user_id, 'Введите город для поиска человека')
-            for event in longpoll.listen():
-                if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-                    city_sh = event.text.lower()
-                    id_city = self.seach_id_city(user_id, city_sh)
-        return id_city
 
-    def seach_id_city(self, user_id, name_city):
+    def get_city(self, ids, messages):
+        self.message_send(ids, messages)
+        for event in self.longpoll.listen():
+            if event.type == VkEventType.MESSAGE_NEW and event.to_me:
+                try:
+                    request = str(event.text)
+
+                except:
+                    self.message_send(ids, "Введи город верно")
+                else:
+                    return request
+
+    def seach_id_city(self, name_city):
         parametr = {'access_token': acces_token,
                     'country_id': 1,
                     'q': f'{name_city}',
                     'need_all': 0,
                     'count': 1000
                     }
-        quest = self.bot.method('database.getCities', parametr)
+        quest = self.ext_api.method('database.getCities', parametr)
+        list = quest['items']
+
         try:
-            list = quest['response']['items']
-            for city_number in list:
-                searh_city = city_number.get('title')
-                if searh_city == name_city:
-                    searh_city_id = city_number.get('id')
+            for city_number in range(len(list)):
+                list_city = list[city_number]
+                look_city = list_city.get('title')
+                if look_city == name_city:
+                    searh_city_id = list_city.get('id')
                     return int(searh_city_id)
         except KeyError:
-            self.message_send(user_id, 'Ошибка получения данных о вас')
+            self.message_send(user_id, 'Ошибка получения данных')
 
     def get_profile_info(self, user_id):
 
@@ -103,16 +108,15 @@ class BotFunction:
 
         return info
 
-    def user_search(self, user_id, city_id, age_from, age_to, sex, relation, offset = None):
+    def user_search(self, city_id, age_from, age_to, sex, status, offset = None):
 
         try:
             profiles = self.ext_api.method('users.search',
-                                           {'user_id': user_id,
-                                            'city_id': city_id,
+                                           {'city_id': city_id,
                                             'age_from': age_from,
                                             'age_to': age_to,
                                             'sex': sex,
-                                            'relation': relation,
+                                            'status': status,
                                             'count': 30,
                                             'offset': offset
                                             }
@@ -156,6 +160,18 @@ class BotFunction:
 
         return top3_photo
 
+    def get_age(self, ids, messages):
+        self.message_send(ids, messages)
+        for event in self.longpoll.listen():
+            if event.type == VkEventType.MESSAGE_NEW and event.to_me:
+                try:
+                    request = int(event.text)
+                except:
+                    self.message_send(ids, "Введи возраст цифрами")
+                else:
+                    return request
+
+
 if __name__ == '__main__':
     bot = BotFunction()
 
@@ -164,10 +180,9 @@ if __name__ == '__main__':
             info = bot.get_search_info(event.user_id)
             user_id = event.user_id
             # print(info)
-            # print(user_id)
             us_name = info[0]
             us_bdate = info[1]
-            # print(us_bdate)
+
             if event.text.lower() == 'привет':
                 bot.message_send(event.user_id, f'Добрый день, {us_name} \n'
                                                     'Я могу помочь найти пару для тебя\n'
@@ -179,18 +194,20 @@ if __name__ == '__main__':
             elif event.text.lower() == 'поиск':
                 bot.message_send(event.user_id, 'Давай определим параметры поиска')
                 seeker_sex = bot.find_sex_user(info[2])
+                city_searh = info[3]['id']
+                counter = 1
+                offset_check = 1
+                bot.message_send(event.user_id, f'Город для поиска по умолчанию - ваш город в профиле\n'
+                                                 'Если хотите указать другой город или в профиле не указан, напишите "город"\n')
                 year_now = int(datetime.datetime.now().year)
                 check_date = us_bdate.split('.')
                 year_bd = int(check_date[-1])
-                # print(year_bd)
                 if year_bd > 1923:
                     seeker_bdate = year_bd
                 else:
                     year_bd <= 1923
                     bot.message_send(event.user_id, f'Для запуска поиска необходимо верно указать свой год рождения в профиле\n'
                                                         'Вам должно быть больше 18 лет\n')
-                        # break
-                # print(seeker_bdate)
                 age = year_now - seeker_bdate
                 if age < 18:
                     bot.message_send(event.user_id, 'Подождите, пока исполнится 18 лет')
@@ -202,22 +219,40 @@ if __name__ == '__main__':
                     age_min_search = 18
                 age_max_search = age + 5
 
+                bot.message_send(event.user_id, f'Если хотите указать свой диапазон\n'
+                                                 'для указания минимального возраста, напишите "мин"\n'
+                                                 'для указания максимального возраста, напишите "макс"\n')
 
-                    # for ev in bot.longpoll.listen():
-                    #     if ev.type == VkEventType.MESSAGE_NEW and ev.to_me:
-                    #         bot.message_send(event.user_id, 'Введите минимальный возраст поиска (минимальный возраст - 18 лет)')
-                    #         age_min_search = ev.text.lower()
-                    #         bot.message_send(event.user_id, 'Введите максимальный возраст поиска')
-                    #         age_max_search = ev.text.lower()
-                    #         border_age = bot.range_age(age_min_search, age_max_search)
-                    #         if border_age[0] == 0:
-                    #         bot.message_send(event.user_id, 'Возраст введен некорректно')
-                city_searh = info[3]['id']
-                counter = 1
+            elif event.text.lower() == 'мин':
+                age_min_search = bot.get_age(event.user_id, f'минимальный возраст (цифрами):\n')
+                if age_min_search < 18:
+                    bot.message_send(event.user_id, 'Недопустимый возраст, поиск происходит от 18 лет\n'
+                                                    'для введения корректного возраста, напишите "мин"\n')
+                print(age_min_search)
+                bot.message_send(event.user_id, f'для указания максимального возраста, напишите "макс"\n'
+                                                 'для поиска с максимальным возрастом +5лет, напишите "далее"\n')
+
+
+            elif event.text.lower() == 'макс':
+                age_max_search = bot.get_age(event.user_id, f'максимальный возраст (цифрами):\n')
+                print(age_max_search)
+                if age_min_search > age_max_search:
+                    bot.message_send(event.user_id, 'Некорректно введен возрастной диапазон, начните сначала: "поиск"\n')
+                else:
+                    bot.message_send(event.user_id, 'Для продолжения работы, напишите "далее"\n')
+
+            elif event.text.lower() == 'город':
+                city_s = bot.get_city(event.user_id, f'Город для поиска:\n')
+                city_searh = bot.seach_id_city(city_s)
+                bot.message_send(event.user_id, 'Для продолжения работы, напишите "мин" для указания возрастных диапазонов\n'
+                                                'Или "далее" для продолжения поиска с возрастным диапазоном по умолчанию\n')
+                offset_check = 1
             elif event.text.lower() == 'далее':
-                list = bot.user_search(event.user_id, city_searh, age_min_search, age_max_search, seeker_sex, 6, 30)
-                quantity = range(len(list))
+                city_searh_id = city_searh
 
+                list = bot.user_search(city_searh_id, age_min_search, age_max_search, seeker_sex, 6, offset_check)
+                quantity = range(len(list))
+                print(list)
                 while counter != quantity:
                     name_sh = list[counter-1]['name']
                     id_sh = list[counter-1]['id']
@@ -233,6 +268,10 @@ if __name__ == '__main__':
                         add_users_in_table(connect, id_sh)
                         bot.message_send(event.user_id, 'Если хочешь продолжить поиск, набери "Далее')
                         break
+                    else:
+                        counter += 1
+                offset_check += 10
+
                 if event.text.lower() == 'далее':
                     counter +=1
 
@@ -249,3 +288,4 @@ if __name__ == '__main__':
             else:
                 bot.message_send(event.user_id, 'Неизвестная команда.\n'
                                                 'Воспользуйся командой "помощь"\n')
+
